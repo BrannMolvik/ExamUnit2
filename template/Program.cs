@@ -19,7 +19,7 @@ HttpUtils httpUtils = HttpUtils.instance;
 // We start by registering and getting the first task
 Response startRespons = await httpUtils.Get(baseURL + startEndpoint + myPersonalID);
 Console.WriteLine($"Start:\n{Colors.Magenta}{startRespons}{ANSICodes.Reset}\n\n"); // Print the response from the server to the console
-string taskID = "aaa"; // We get the taskID from the previous response and use it to get the task (look at the console output to find the taskID)
+string taskID = "psu31_4"; // We get the taskID from the previous response and use it to get the task (look at the console output to find the taskID)
 
 //#### FIRST TASK 
 // Fetch the details of the task from the server.
@@ -46,7 +46,7 @@ Console.WriteLine(answer);
 Response task1AnswerResponse = await httpUtils.Post(baseURL + taskEndpoint + myPersonalID + "/" + taskID, answer.ToString());
 Console.WriteLine($"Answer: {Colors.Green}{task1AnswerResponse}{ANSICodes.Reset}");
 
-taskID = "bbb"; 
+taskID = "kuTw53L"; 
 
 
 Console.WriteLine("\n-----------------------------------\n");
@@ -56,22 +56,46 @@ Task task2 = JsonSerializer.Deserialize<Task>(task2Response.content);
 
 Console.WriteLine($"TASK: {ANSICodes.Effects.Bold}{task2?.title}{ANSICodes.Reset}\n{task2?.description}\nParameters: {Colors.Yellow}{task2?.parameters}{ANSICodes.Reset}");
 
-string answer2 = "";
+string[] input2 = task2.parameters.Split(",");
+string answer2 = Prime(input2);
 
+static string Prime(string[] numbers)
+{
+    List<int> primes = new List<int>();
+        foreach (string number in numbers)
+        {
+            if (IsPrime(int.Parse(number)))
+            {
+                primes.Add(int.Parse(number));
+            }
+        }
+    primes.Sort();
+    return string.Join(",", primes);
+}
+static bool IsPrime(int number)
+{
+    if (number <= 1)
+        return false;
+    if (number <= 3)
+        return true;
+    if (number % 2 == 0 || number % 3 == 0)
+        return false;
 
-if (task2.parameters.Contains("ice cream"))
-{
-    answer2 = "I scream for ice cream";
+    int divisor = 5;
+    while (divisor * divisor <= number)
+    {
+        if (number % divisor == 0 || number % (divisor + 2) == 0)
+            return false;
+        divisor += 6;
+    }
+    return true;
 }
-else
-{
-    answer2 = "I will have a cup of tea";
-}
+
 Console.WriteLine(answer2);
 Response task2AnswerResponse = await httpUtils.Post(baseURL + taskEndpoint + myPersonalID + "/" + taskID, answer2);
 Console.WriteLine($"\nAnswer: {Colors.Green}{task2AnswerResponse}{ANSICodes.Reset}");
 
-taskID = "ccc"; 
+taskID = "aAaa23"; 
 
 
 Console.WriteLine("\n-----------------------------------\n");
