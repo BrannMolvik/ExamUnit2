@@ -128,7 +128,6 @@ Console.WriteLine($"TASK: {ANSICodes.Effects.Bold}{task4?.title}{ANSICodes.Reset
 
 int number4 = int.Parse(task4.parameters);
 string answer4 = OddOrEven(number4);
-Console.WriteLine(answer4);
 
 string OddOrEven(int number)
 {
@@ -142,7 +141,7 @@ string OddOrEven(int number)
     }
 }
 
-
+Console.WriteLine(answer4);
 
 Response task4AnswerResponse = await httpUtils.Post(baseURL + taskEndpoint + myPersonalID + "/" + taskID, answer4.ToString());
 Console.WriteLine($"\nAnswer: {Colors.Green}{task4AnswerResponse}{ANSICodes.Reset}");
