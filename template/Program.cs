@@ -126,6 +126,28 @@ Task task4 = JsonSerializer.Deserialize<Task>(task4Response.content);
 
 Console.WriteLine($"TASK: {ANSICodes.Effects.Bold}{task4?.title}{ANSICodes.Reset}\n{task4?.description}\nParameters: {Colors.Yellow}{task4?.parameters}{ANSICodes.Reset}");
 
+int number4 = int.Parse(task4.parameters);
+string answer4 = OddOrEven(number4);
+Console.WriteLine(answer4);
+
+string OddOrEven(int number)
+{
+    if (number % 2 == 0)
+    {
+        return "even";
+    }
+    else
+    {
+        return "odd";
+    }
+}
+
+
+
+Response task4AnswerResponse = await httpUtils.Post(baseURL + taskEndpoint + myPersonalID + "/" + taskID, answer4.ToString());
+Console.WriteLine($"\nAnswer: {Colors.Green}{task4AnswerResponse}{ANSICodes.Reset}");
+
+
 class Task
 {
     public string? title { get; set; }
